@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 
 
@@ -15,14 +16,22 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      info:null
     };
    }
+   componentDidMount() {
+    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/info?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ info: res.records })
+      })
+      .catch(error => console.log(error))
 
+    }
 
 
    render() {
-
+     const {info} = this.state
     return (
 
      <footer style={this.props.style}>
@@ -36,7 +45,10 @@ class Footer extends Component {
         </div>
         <div className='col-6 col-sm-3'>
             <p className='text-tiny baskerville'>
-            Thurs-Sun: 1-7pm<br/>(Limited capacity walk-in + <a href="https://calendly.com/miriamgallery/winterhours?month=2021-02">by appointment</a>)
+            {info &&
+              <ReactMarkdown className="col-6 col-lg-12" source={info[0].fields.HoursText} />
+            }
+           
             </p>
         </div>
         <div className='col-6 col-sm-3'>
