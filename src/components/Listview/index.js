@@ -20,6 +20,8 @@ class Listview extends Component {
     this.formatDate = this.formatDate.bind(this);
     this.getOrdinalNum = this.getOrdinalNum.bind(this);
     this.filterTags = this.filterTags.bind(this);
+    this.filterExhibitions = this.filterExhibitions.bind(this);
+    this.filterEvents = this.filterEvents.bind(this);
     this.onToggleOpen = this.onToggleOpen.bind(this);
      this.hoverOn = this.hoverOn.bind(this);
     this.hoverOff = this.hoverOff.bind(this);
@@ -76,6 +78,88 @@ class Listview extends Component {
         all[i].classList.add('on')
       }
     }
+  }
+
+  filterEvents(e){
+
+    let currentClass = "event-item";
+
+    let all = document.getElementsByClassName('list-item')
+   
+    if(document.getElementById("eventTrigger").classList.contains("on")){
+      console.log('on')
+       document.getElementById("eventTrigger").classList.remove("on")
+      document.getElementById("exhibitionTrigger").classList.remove("on")
+
+      for (var i = all.length - 1; i >= 0; i--) {
+              all[i].classList.add('on')
+
+          }
+
+    }else{
+      console.log('off')
+       document.getElementById("eventTrigger").classList.remove("on")
+      document.getElementById("exhibitionTrigger").classList.remove("on")
+      e.target.classList.add("on")
+          if(currentClass !== "All"){
+
+         
+          for (var i = all.length - 1; i >= 0; i--) {
+              all[i].classList.remove('on')
+
+          }
+          let currents = document.getElementsByClassName(currentClass)
+          for (var i = currents.length - 1; i >= 0; i--) {
+            currents[i].classList.add('on')
+          }
+        } else{
+          for (var i = all.length - 1; i >= 0; i--) {
+            all[i].classList.add('on')
+          }
+        }
+    }
+  }
+
+ filterExhibitions(e){
+    
+    let currentClass = "exhibition-item";
+
+    let all = document.getElementsByClassName('list-item')
+   
+    if(document.getElementById("exhibitionTrigger").classList.contains("on")){
+      document.getElementById("eventTrigger").classList.remove("on")
+      document.getElementById("exhibitionTrigger").classList.remove("on")
+
+      for (var i = all.length - 1; i >= 0; i--) {
+              all[i].classList.add('on')
+
+          }
+
+document.getElementById("exhibitionTrigger").classList.remove("on")
+    }else{
+      document.getElementById("eventTrigger").classList.remove("on")
+      document.getElementById("exhibitionTrigger").classList.remove("on")
+      e.target.classList.add("on")
+          if(currentClass !== "All"){
+
+         
+          for (var i = all.length - 1; i >= 0; i--) {
+              all[i].classList.remove('on')
+
+          }
+          let currents = document.getElementsByClassName(currentClass)
+          for (var i = currents.length - 1; i >= 0; i--) {
+            currents[i].classList.add('on')
+          }
+        } else{
+          for (var i = all.length - 1; i >= 0; i--) {
+            all[i].classList.add('on')
+          }
+        }
+    }
+
+    
+
   }
 
  getOrdinalNum(number) {
@@ -172,7 +256,7 @@ class Listview extends Component {
       }
       return(
 
-        <a style={hovers[x.id] ? listStyle : {}} onMouseOver={()=> this.hoverOn(x.id,hovers)} onMouseLeave={()=> this.hoverOff(x.id,hovers)} data-bg-color={x.fields.ThumbnailBgColor} data-color={x.fields.ThumbnailColor} href={linkroot+slugify(x.fields.Title)} key={x.id} id={x.id} className={dateClass == tense ? x.fields.Tags + " "+ dateClass + " list-item on mew row" :  x.fields.Tags + " "+ dateClass + " list-item mew row"} >
+        <a style={hovers[x.id] ? listStyle : {}} onMouseOver={()=> this.hoverOn(x.id,hovers)} onMouseLeave={()=> this.hoverOff(x.id,hovers)} data-bg-color={x.fields.ThumbnailBgColor} data-color={x.fields.ThumbnailColor} href={linkroot+slugify(x.fields.Title)} key={x.id} id={x.id} className={` ${dateClass == tense ? x.fields.Tags + " "+ dateClass + " list-item on mew row" :  x.fields.Tags + " "+ dateClass + " list-item mew row"} ${x.type == "exhibition" ? "exhibition-item" : "event-item"}`} >
           <h1 className='text-small baskerville col-special'>{x.fields.Title}<h1 className='mobile-title text-small '>{x.fields.PageDateTimeText}</h1></h1>
 
           <div className='text-small baskerville col-special'>
@@ -226,7 +310,7 @@ class Listview extends Component {
 
      <div className='list-view container-fluid'>
       <div className="list-item on list-item-menu row" >
-          <h1 className='text-small col-special'>Event/Exhibition</h1>
+          <h1 className='text-small col-special'><span id="eventTrigger" onClick={this.filterEvents}>Event</span>/<span id="exhibitionTrigger" onClick={this.filterExhibitions}>Exhibition</span></h1>
           <h1 className='text-small col-special'> <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Date

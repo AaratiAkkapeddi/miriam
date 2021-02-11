@@ -217,6 +217,15 @@ class Event extends Component {
           </div>
           
           </div>
+          {record.fields.FeaturedBookImage ? 
+          <div className='featured-book container-fluid'>
+            <div className='row'>
+
+              <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville' source={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
+              <div className='col-6'><img onClick={this.openLightbox} src={record.fields.FeaturedBookImage[0].url}></img></div>
+            </div>
+          </div>
+        :""}
         </div>
        ) : 'loading'
     return (

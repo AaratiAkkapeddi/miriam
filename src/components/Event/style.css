@@ -8,6 +8,9 @@
 	border:none;
 	padding:5px 0;
 }
+a.book-button, a.book-button:hover{
+	border:none;
+}
 .event-page .toolbar .col-6:first-child{
 	text-align: left;
 }

@@ -29,18 +29,18 @@ class Footer extends Component {
      <div className='row'>
         <div className='col-6 col-sm-3'>
           <h1 className='text-small'>Miriam</h1>
-          <p className='text-tiny baskerville'>gallery + bookshop<br/>@miriam.gallery</p>
+          <p className='text-tiny baskerville'>gallery + bookshop<br/><a style={{textDecoration:"none", border:"none"}} href="https://www.instagram.com/miriam.gallery/">@miriam.gallery</a></p>
         </div>
         <div className='col-6 col-sm-3'>
           <p className='text-tiny baskerville'>319 Bedford Ave,<br/>Williamsburg<br/>Brooklyn, NY 11211</p>
         </div>
         <div className='col-6 col-sm-3'>
             <p className='text-tiny baskerville'>
-            Thurs-Sun: 1-7pm<br/>(Limited capacity walk-in + <a href="https://calendly.com/miriamgallery/astoneholdswater?month=2020-10">by appointment</a>)
+            Thurs-Sun: 1-7pm<br/>(Limited capacity walk-in + <a href="https://calendly.com/miriamgallery/winterhours?month=2021-02">by appointment</a>)
             </p>
         </div>
         <div className='col-6 col-sm-3'>
-            <p className='text-tiny baskerville'><a href='https://mailchi.mp/0a822e78bfa8/miriammailinglist'>Join Our Mailing List</a><br/>hello@miriamgallery.com</p>
+            <p className='text-tiny baskerville'><a target="_blank" href='https://mailchi.mp/0a822e78bfa8/miriammailinglist'>Join Our Mailing List</a><br/>hello@miriamgallery.com</p>
         </div>
         </div>
       </footer>
