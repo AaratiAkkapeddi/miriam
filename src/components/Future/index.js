@@ -41,6 +41,7 @@ class Past extends Component {
   if (a.fields.StartDate < b.fields.StartDate) return 1;
   return 0;
 });
+    published = published.reverse()
     const {listview} = this.state
     return (
 
