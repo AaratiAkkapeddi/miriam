@@ -212,7 +212,7 @@ class Exhibition extends Component {
         {record.fields.PageBodyImages ? 
           <div className='page-body container-fluid'>
             <div className='row'>
-              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown renderers={renderers}children={record.fields.PageDescription}/></div>
+              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown renderers={renderers} children={record.fields.PageDescription}/></div>
               <div className='col-12 col-sm-6 second-column text-small baskerville'>
               <div className='row'>
                 {record.fields.PageBodyImages.map((x,i)=>{

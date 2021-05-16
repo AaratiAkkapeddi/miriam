@@ -29,7 +29,7 @@ padding: 27px 0;
 	margin:5px 0;
 }
 .top .inset img{
-	height: 44vh;
+	height: 80vh;
 	max-width: none;
 	width: auto;
 }
@@ -243,6 +243,11 @@ header img{
 	.second-column{
 		text-align: left;
 		border-left:none;
+	}
+	.top .inset img{
+		height: 44vh;
+		max-width: none;
+		width: auto;
 	}
 	.exhibition .event-page .header{
 		margin:0;
