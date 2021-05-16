@@ -164,6 +164,7 @@ class Homecarousel extends Component {
     }
     const slides = carousel_slides.length > 0 ? carousel_slides.map((x,i)=>{
       if(x.fields.public){
+        console.log(x.fields.Name)
         if(x.fields.TileBg){
            var divStyle = {
             backgroundColor: x.fields.BackgroundColor,
@@ -200,7 +201,7 @@ class Homecarousel extends Component {
       var mySVGStyle = {
         stroke: x.fields.HeadlineColor,
       }
-      if(x.fields.Headline){
+
       return(
 
         
@@ -210,7 +211,10 @@ class Homecarousel extends Component {
            <div className='prev-invisible invisible-block' onMouseOver={this.showPrev}  onMouseOut={this.hidePrev} onClick={this.goPrev} ></div>
           <div className='next-invisible invisible-block' onMouseOver={this.showNext} onMouseOut={this.hideNext} onClick={this.goNext} ></div>
           <Menutrigger style={logoStyle}></Menutrigger>
-          <h1 style={headlineStyle} className='text-large baskerville title'>{x.fields.Headline}</h1>
+          {x.fields.Headline &&
+            <h1 style={headlineStyle} className='text-large baskerville title'>{x.fields.Headline}</h1>
+          }
+          
            {!x.fields.HeroImage ? '' :
 
             
@@ -257,7 +261,7 @@ class Homecarousel extends Component {
          }
         </div>
 
-       )}
+       )
      }
       }) : 'loading'
   
