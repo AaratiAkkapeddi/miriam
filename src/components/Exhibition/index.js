@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import ReactMarkdown from "react-markdown";
+import {markdown} from 'markdown';
 import {Navigation} from '../';
 import {Mainmenu} from '../';
 import {Menutrigger, Footer} from '../';
@@ -34,12 +35,20 @@ class Exhibition extends Component {
          openLightbox(e){
     console.log(e)
     var img_url = e.target.src;
+    let img_caption = e.target.getAttribute("datacaption");
+    console.log(e.target)
+    let caption = document.createElement('div');
+    caption.classList.add("lightbox-caption");
+    caption.classList.add("text-small");
+    caption.classList.add("baskerville");
     var newImg = document.createElement('img');
+    caption.innerHTML = markdown.toHTML(img_caption)
     newImg.src = img_url;
     var lightbox = document.getElementById('light-box');
     var lightboxInner = lightbox.getElementsByClassName("inner")[0];
     lightboxInner.innerHTML = '';
     lightboxInner.appendChild(newImg);
+    lightboxInner.appendChild(caption);
     lightbox.classList.add('on')
 
   }
@@ -216,10 +225,20 @@ class Exhibition extends Component {
               <div className='col-12 col-sm-6 second-column text-small baskerville'>
               <div className='row'>
                 {record.fields.PageBodyImages.map((x,i)=>{
-
+                    console.log(x)
+                    let caption = ""
+                    if(record.fields.PageBodyImageCaptions && (record.fields.PageBodyImageCaptions.split("|").length > 0)){
+                      if(record.fields.PageBodyImageCaptions.split("|")[i]){
+                        caption = record.fields.PageBodyImageCaptions.split("|")[i]
+                      }
+                    } else if(record.fields.PageBodyImageCaptions){
+                      if(i == 0){
+                        caption = record.fields.PageBodyImageCaptions;
+                      }
+                    }
                     return(
                       <div className={record.fields.PageBodyImages.length > 2 ? "col-6 col-sm-4" : "col-12"} >
-                        <img  onClick={this.openLightbox} src={x.url} />
+                        <img dataCaption={caption} onClick={this.openLightbox} src={x.url} />
                       </div>
                       )
                   })

@@ -32,6 +32,7 @@ b,strong{
   width:100vw;
   height:100vh;
   padding:15px;
+  overflow-y:scroll;
   position: fixed;
   z-index: 9999;
   background: rgba(0,0,0,0.9);

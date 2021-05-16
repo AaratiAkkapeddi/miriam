@@ -238,7 +238,12 @@ header img{
 	margin-top:150px;
 	transform:translateY(-25%);
 }
-
+.lightbox-caption{
+	color:white;
+	display: block;
+	margin-top:5px;
+	font-weight: normal;
+}
 @media(max-width: 768px){
 	.second-column{
 		text-align: left;
