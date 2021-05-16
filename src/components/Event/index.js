@@ -110,6 +110,16 @@ class Event extends Component {
       var headerStyle = {
         "backgroundImage": (record.fields.HeaderImage ? 'url(' + record.fields.HeaderImage[0].url + ')' : ''),
       }
+       const components = {
+            code({node, inline, className, children, ...props}) {
+              const match = /language-(\w+)/.exec(className || '')
+              return !inline && match ? (
+                <div>{ReactHtmlParser(children)}</div>
+              ) : (
+                <div>{ReactHtmlParser(children)}</div>
+              )
+            }
+          }
       const HtmlCode = props => {
             console.log(props)
             return (
@@ -188,7 +198,7 @@ class Event extends Component {
 
         
             </div>
-            <div className={record.fields.PageBigText ? ' text-large baskerville' :' text-small baskerville'}><ReactMarkdown renderers={renderers} children={record.fields.PageDescription}/></div>
+            <div className={record.fields.PageBigText ? ' text-large baskerville' :' text-small baskerville'}><ReactMarkdown components={components} children={record.fields.PageDescription}/></div>
           </div>
           <div className='col-12 col-sm-6 second-column'>
           {record.fields.PageHeroImages ?

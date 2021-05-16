@@ -115,12 +115,22 @@ class Exhibition extends Component {
       var headerStyle = {
         "backgroundImage": (record.fields.HeaderImage ? 'url(' + record.fields.HeaderImage[0].url + ')' : ''),
       }
-           const HtmlCode = props => {
-            console.log(props)
-            return (
-              <div>{ReactHtmlParser(props.value)}</div>
-            );
-          };
+         const HtmlCode = props => {
+          console.log(props)
+          return (
+            <div>{ReactHtmlParser(props.value)}</div>
+          );
+        };
+        const components = {
+            code({node, inline, className, children, ...props}) {
+              const match = /language-(\w+)/.exec(className || '')
+              return !inline && match ? (
+                <div>{ReactHtmlParser(children)}</div>
+              ) : (
+                <div>{ReactHtmlParser(children)}</div>
+              )
+            }
+          }
 
           const renderers = {
               inlineCode: HtmlCode,
@@ -221,7 +231,7 @@ class Exhibition extends Component {
         {record.fields.PageBodyImages ? 
           <div className='page-body container-fluid'>
             <div className='row'>
-              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown renderers={renderers} children={record.fields.PageDescription}/></div>
+              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown components={components} children={record.fields.PageDescription}/></div>
               <div className='col-12 col-sm-6 second-column text-small baskerville'>
               <div className='row'>
                 {record.fields.PageBodyImages.map((x,i)=>{
@@ -250,7 +260,7 @@ class Exhibition extends Component {
           :
           <div className='page-body container-fluid'>
             <div className='row'>
-              <div className={record.fields.PageBigText ? ' text-large baskerville col-12' :' text-medium baskerville col-12'}><ReactMarkdown renderers={renderers}children={record.fields.PageDescription}/></div>
+              <div className={record.fields.PageBigText ? ' text-large baskerville col-12' :' text-medium baskerville col-12'}><ReactMarkdown components={components} children={record.fields.PageDescription}/></div>
             </div>
           </div>
         } 
