@@ -129,7 +129,7 @@ class Announcement extends Component {
                         <div className='col-12'>
                         {record.fields.HeroImages.length == record.fields.HeroImageCaptions.split(',').length ?
                         
-                        <ReactMarkdown  source={record.fields.HeroImageCaptions.split(',')[i]}/>
+                        <ReactMarkdown  children={record.fields.HeroImageCaptions.split(',')[i]}/>
                        
                       :""}
                       </div>
@@ -175,20 +175,20 @@ class Announcement extends Component {
               {record.fields.PageDateTimeText ? 
                 <div className='row'>
                  <div className='col-6'>
-                 <ReactMarkdown source={record.fields.PageDateTimeText} />
+                 <ReactMarkdown children={record.fields.PageDateTimeText} />
                  </div>
                  <div className='col-6'>
-                 <ReactMarkdown source={record.fields.PageDetailsRight} />
+                 <ReactMarkdown children={record.fields.PageDetailsRight} />
                 </div>
                 </div>
                : 
                <div className='row'>
                  <div className='col-12'>
-                 <ReactMarkdown source={record.fields.PageDetailsRight} />
+                 <ReactMarkdown children={record.fields.PageDetailsRight} />
                 </div></div>}
               
             </div>
-            <div className={record.fields.PageBigText ? 'text-medium' : ' text-small baskerville'}><ReactMarkdown className={record.fields.PageSkinny ? "page-skinny" : ""} source={record.fields.PageDescription} /></div>
+            <div className={record.fields.PageBigText ? 'text-medium' : ' text-small baskerville'}><ReactMarkdown className={record.fields.PageSkinny ? "page-skinny" : ""} children={record.fields.PageDescription} /></div>
           </div>          
           </div>
         </div>

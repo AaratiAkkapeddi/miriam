@@ -186,7 +186,7 @@ const renderers = {
           <h1 style={subheadlineStyle} className='text-large baskerville'>{x.fields.SubHeading}</h1>
         }
         {!x.fields.DescriptiveCopy ? '' :
-          <div style={descriptionStyle} className='description text-medium'><ReactMarkdown renderers={renderers} source={x.fields.DescriptiveCopy} /></div>
+          <div style={descriptionStyle} className='description text-medium'><ReactMarkdown renderers={renderers} children={x.fields.DescriptiveCopy} /></div>
         }
 
         </div>
@@ -204,7 +204,7 @@ const renderers = {
           <a href={x.fields.Slidelink} ><h1 style={subheadlineStyle} className='text-large baskerville'>{x.fields.SubHeading}</h1></a>
         }
         {!x.fields.DescriptiveCopy ? '' :
-          <a href={x.fields.Slidelink} ><div style={descriptionStyle} className='description text-medium'><ReactMarkdown source={x.fields.DescriptiveCopy} /></div></a>
+          <a href={x.fields.Slidelink} ><div style={descriptionStyle} className='description text-medium'><ReactMarkdown children={x.fields.DescriptiveCopy} /></div></a>
         }
         </div>
         </div>

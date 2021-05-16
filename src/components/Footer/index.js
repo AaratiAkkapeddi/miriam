@@ -44,12 +44,12 @@ class Footer extends Component {
           <p className='text-tiny baskerville'>319 Bedford Ave,<br/>Williamsburg<br/>Brooklyn, NY 11211</p>
         </div>
         <div className='col-6 col-sm-3'>
-            <p className='text-tiny baskerville'>
+            <div className='text-tiny baskerville'>
             {info &&
-              <ReactMarkdown className="col-6 col-lg-12" source={info[0].fields.HoursText} />
+              <ReactMarkdown className="col-6 col-lg-12" children={info[0].fields.HoursText} />
             }
            
-            </p>
+            </div>
         </div>
         <div className='col-6 col-sm-3'>
             <p className='text-tiny baskerville'><a target="_blank" href='https://mailchi.mp/0a822e78bfa8/miriammailinglist'>Join Our Mailing List</a><br/>hello@miriamgallery.com</p>

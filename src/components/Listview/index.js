@@ -266,7 +266,7 @@ document.getElementById("exhibitionTrigger").classList.remove("on")
      
             </div>
           <div className='text-small baskerville col-special'>{x.fields.Tags ? (x.fields.Tags.split(',').join(', ')) :""}</div>
-          <h1 className='people text-small baskerville col-special'><ReactMarkdown source= {x.fields.People}></ReactMarkdown></h1>
+          <h1 className='people text-small baskerville col-special'><ReactMarkdown children= {x.fields.People}></ReactMarkdown></h1>
           <div className='col-special'>
             {x.fields.PageHeroImages ? 
               <img src={x.fields.PageHeroImages[0].url}/>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
-import Flickity from 'flickity';
+// import Flickity from 'flickity';
+import Flickity from 'react-flickity-component'
 import 'flickity/dist/flickity.min.css';
 
 import {
@@ -46,7 +47,7 @@ class Homecarousel extends Component {
         .then(res => res.json())
         .then(res => {
           this.setState({ carousel_slides: res.records })
-          console.log(res.records)
+
         })
         .catch(error => console.log(error))
 
@@ -101,8 +102,10 @@ class Homecarousel extends Component {
          if(slides[i].classList.contains('selected')){
            if(i == 0){
             this.setState({currentIndex: i})
+            this.flkty.select( (i), true, false )
            }else{
             this.setState({currentIndex: i})
+            this.flkty.select( (i), true, false )
            }
            
          }
@@ -110,42 +113,50 @@ class Homecarousel extends Component {
   }
 
   goNext(){
-
-       const slides = document.getElementsByClassName('carousel-slide');
-       for (var i = slides.length - 1; i >= 0; i--) {
-         if(slides[i].classList.contains('is-selected')){
-          if(i == slides.length-1){
-           this.setState({currentIndex: 0})
-          }else{
-            console.log(i)
-            this.setState({currentIndex: (i) + 1})
-          }
-         }
-       }
+    console.log('next')
+       // const slides = document.getElementsByClassName('carousel-slide');
+       this.flkty.next()
+       // for (var i = slides.length - 1; i >= 0; i--) {
+       //   if(slides[i].classList.contains('is-selected')){
+       //    if(i == slides.length-1){
+       //     // this.setState({currentIndex: 0})
+       //     this.flkty.next()
+       //     console.log(this.flkty)
+       //    }else{
+      
+       //      // this.setState({currentIndex: (i) + 1})
+       //      this.flkty.next()
+       //      console.log(this.flkty)
+       //    }
+       //   }
+       // }
        // this.setState({ nextslide: true })
        // this.setState({ nextslide: false })
       
     }
     goPrev(){
-      console.log('prev')
-       const slides = document.getElementsByClassName('carousel-slide');
-       for (var i = slides.length - 1; i >= 0; i--) {
-         if(slides[i].classList.contains('is-selected')){
-           if(i == 0){
-            this.setState({currentIndex: slides.length - 1})
-           }else{
-            console.log(i - 1)
-            this.setState({currentIndex: i - 1})
-           }
+      this.flkty.previous()
+ // console.log('prev')
+ //       const slides = document.getElementsByClassName('carousel-slide');
+ //       for (var i = slides.length - 1; i >= 0; i--) {
+ //         if(slides[i].classList.contains('is-selected')){
+ //           if(i == 0){
+ //            // this.setState({currentIndex: slides.length - 1})
+ //            this.flkty.previous()
+ //           }else{
+ //            // console.log(i - 1)
+ //            // this.setState({currentIndex: i - 1})
+ //            this.flkty.previous()
+ //           }
            
-         }
-       }
+ //         }
+ //       }
       
     }
 
    render() {
    	const { carousel_slides, carousel, currentIndex } = this.state;
-
+    console.log(carousel_slides)
    
     const flickityOptions = {
     	cellAlign:'left',
@@ -209,10 +220,10 @@ class Homecarousel extends Component {
           }
           <div>
           {!x.fields.SubHeading ? '' :
-          <h1 style={subheadlineStyle} className='text-large baskerville'><ReactMarkdown source={x.fields.SubHeading} /></h1>
+          <h1 style={subheadlineStyle} className='text-large baskerville'><ReactMarkdown children={x.fields.SubHeading} /></h1>
         }
         {!x.fields.DescriptiveCopy ? '' :
-          <div style={descriptionStyle} className='description text-medium'><ReactMarkdown source={x.fields.DescriptiveCopy} /></div>
+          <div style={descriptionStyle} className='description text-medium'><ReactMarkdown children={x.fields.DescriptiveCopy} /></div>
         }
         </div>
 
@@ -232,7 +243,7 @@ class Homecarousel extends Component {
           <div><a  onMouseOver={this.showClick}  onMouseOut={this.hideClick}  href={x.fields.Slidelink} ><h1 style={subheadlineStyle} className='text-large baskerville'>{x.fields.SubHeading}</h1></a></div>
         }
         {!x.fields.DescriptiveCopy ? '' :
-         <div> <a  onMouseOver={this.showClick}  onMouseOut={this.hideClick}  href={x.fields.Slidelink} ><div style={descriptionStyle} className='description text-medium'><ReactMarkdown source={x.fields.DescriptiveCopy} /></div></a></div>
+         <div> <a  onMouseOver={this.showClick}  onMouseOut={this.hideClick}  href={x.fields.Slidelink} ><div style={descriptionStyle} className='description text-medium'><ReactMarkdown children={x.fields.DescriptiveCopy} /></div></a></div>
         }
           <div style={myborderStyle} className='mobile-controls'><svg onClick={this.goPrev} width="43" height="51" viewBox="0 0 43 51" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path style={mySVGStyle} d="M42.25 49.3157L0.999999 25.5L42.25 1.6843L42.25 49.3157Z" stroke="black"/>
@@ -254,9 +265,9 @@ class Homecarousel extends Component {
 
     return (
 
-     <header className="App-header">
+     <header className="App-header hp-carousel">
         <svg id="click-cursor" className="click-cursors" width="128" height="128" viewBox="0 0 128 128" fill="none" >
-          <g clip-path="url(#clip0)">
+          <g clipPath="url(#clip0)">
           <path d="M63.886 17.2166L127.873 128.046H-0.101151L63.886 17.2166Z" fill="white"/>
           <path d="M65.4287 55.3467C68.82 55.3467 71.7198 56.8212 73.784 58.8854L78.06 54.3637C74.9636 51.3657 70.5893 49.4489 65.4779 49.4489C54.7634 49.4489 47.3419 57.2635 47.3419 67.1424C47.3419 77.0214 54.8617 84.836 65.5762 84.836C71.8672 84.836 76.9787 82.1328 80.0259 78.2501L75.4551 74.1707C73.44 76.7756 70.1962 78.9382 65.7236 78.9382C59.0885 78.9382 53.977 73.8267 53.977 67.1424C53.977 60.6056 58.8919 55.3467 65.4287 55.3467Z" fill="black"/>
           <path d="M36.7634 84.0199H30.374V118.916H36.7634V84.0199Z" fill="black"/>
@@ -271,7 +282,7 @@ class Homecarousel extends Component {
           </defs>
           </svg>
         <svg id="next-cursor" className="click-cursors" width="128" height="128" viewBox="0 0 128 128" fill="none">
-          <g clip-path="url(#clip0)">
+          <g clipPath="url(#clip0)">
           <path d="M110.772 63.6668L-0.0565704 127.654L-0.0565648 -0.320394L110.772 63.6668Z" fill="white"/>
           <path d="M7.51482 64.1173H14.1499V41.7054L33.318 64.1173H37.9871V29.7131H31.352V52.1249L12.184 29.7131H7.51482V64.1173Z" fill="black"/>
           <path d="M26.4187 94.4552C26.0541 96.0845 24.9431 98.4853 22.6021 99.8369C19.6652 101.533 16.1691 100.884 14.2001 98.1612L28.5017 89.9042C28.3165 89.3869 28.0396 88.809 27.7201 88.2556C24.4026 82.5095 17.5821 80.0343 11.8785 83.3273C5.74923 86.866 4.73311 94.1494 8.05066 99.8956C11.786 106.365 18.8829 107.943 25.0547 104.38C28.247 102.537 30.7627 99.325 31.387 95.7864L26.4187 94.4552ZM12.1209 93.9702C11.2951 91.9499 12.1603 89.1235 14.4588 87.7965C16.7147 86.4941 19.4068 87.3234 20.6338 89.0553L12.1209 93.9702Z" fill="black"/>
@@ -285,7 +296,7 @@ class Homecarousel extends Component {
           </defs>
           </svg>
           <svg id="prev-cursor" className="click-cursors" width="128" height="128" viewBox="0 0 128 128" fill="none" >
-          <g clip-path="url(#clip0)">
+          <g clipPath="url(#clip0)">
           <path d="M17 63.8861L127.829 -0.101094L127.829 127.873L17 63.8861Z" fill="white"/>
           <path d="M81.6213 65.0065C81.0745 64.5773 80.6555 64.2219 79.8468 63.755C77.3355 62.3051 74.5144 61.9816 72.3953 62.8013L73.5995 60.7156L68.2789 57.6438L56.3604 78.2874L61.8937 81.4821L69.3889 68.5C70.7826 67.6589 73.7055 67.0196 76.1317 68.4203C76.9404 68.8872 77.7 69.4393 78.0093 69.7881L81.6213 65.0065Z" fill="black"/>
           <path d="M89.845 89.0502C88.2517 89.5491 85.6171 89.7873 83.2761 88.4357C80.3391 86.7401 79.1531 83.388 80.5262 80.3216L94.8278 88.5786C95.1832 88.1596 95.5452 87.6308 95.8647 87.0775C99.1823 81.3313 97.9156 74.187 92.212 70.894C86.0827 67.3553 79.2671 70.117 75.9495 75.8632C72.2142 82.3329 74.3962 89.268 80.568 92.8313C83.7604 94.6743 87.7996 95.2471 91.1763 94.0185L89.845 89.0502ZM83.1162 76.4255C84.4528 74.7001 87.3332 74.0362 89.6317 75.3633C91.8876 76.6657 92.5154 79.4118 91.629 81.3404L83.1162 76.4255Z" fill="black"/>
@@ -299,26 +310,31 @@ class Homecarousel extends Component {
           </defs>
           </svg>
 
+        <Flickity
+          flickityRef={c => this.flkty = c}
+          className={'carousel'} // default ''
+          elementType={'div'} // default 'div'
+          options={{
+                  on:{change:this.props.action},
+                  autoPlay: 6000,
+                  pauseAutoPlayOnHover: true,
+                  wrapAround: true,
+                  fullscreen: true,
+                  adaptiveHeight: true,
+                  pageDots: false,
+                  prevNextButtons:false,
+                  draggable:false,
+            arrowShape: "M1.9,49.9h96.9 M17.1,34.4C12.4,39.3,6,45.8,1.8,49.9l15.3,15.7"
+                }} // takes flickity options {}
+          disableImagesLoaded={false} // default false
+          reloadOnUpdate // default false
+          static // default false
+        >  {slides}
+        </Flickity>
 
-       <Slider
-            action={this.handler}
-            currentIndex={currentIndex}
-            options={{
-              on:{change:this.props.action},
-              autoPlay: 6000,
-              pauseAutoPlayOnHover: true,
-              wrapAround: true,
-              fullscreen: true,
-              adaptiveHeight: true,
-              pageDots: false,
-              prevNextButtons:false,
-              draggable:false,
-        arrowShape: "M1.9,49.9h96.9 M17.1,34.4C12.4,39.3,6,45.8,1.8,49.9l15.3,15.7"
-            }}
-          >
-    {slides}
+      
+  
 
-    </Slider>
 
 
 

@@ -133,7 +133,7 @@ class Event extends Component {
                         <div className='col-12'>
                         {record.fields.PageHeroImages.length == record.fields.PageHeroImageCaptions.split(',').length ?
                         
-                        <ReactMarkdown  source={record.fields.PageHeroImageCaptions.split(',')[i]}/>
+                        <ReactMarkdown  children={record.fields.PageHeroImageCaptions.split(',')[i]}/>
                        
                       :""}
                       </div>
@@ -174,21 +174,21 @@ class Event extends Component {
             {record.fields.PageDateTimeText ? 
                 <div className='row'>
                  <div className='col-6'>
-                 <ReactMarkdown source={record.fields.PageDateTimeText} />
+                 <ReactMarkdown children={record.fields.PageDateTimeText} />
                  </div>
                  <div className='col-6'>
-                 <ReactMarkdown source={record.fields.PageDetailsRight} />
+                 <ReactMarkdown children={record.fields.PageDetailsRight} />
                 </div>
                 </div>
                : 
                <div className='row'>
                  <div className='col-12'>
-                 <ReactMarkdown source={record.fields.PageDetailsRight} />
+                 <ReactMarkdown children={record.fields.PageDetailsRight} />
                 </div></div>}
 
         
             </div>
-            <div className={record.fields.PageBigText ? ' text-large baskerville' :' text-small baskerville'}><ReactMarkdown renderers={renderers} source={record.fields.PageDescription}/></div>
+            <div className={record.fields.PageBigText ? ' text-large baskerville' :' text-small baskerville'}><ReactMarkdown renderers={renderers} children={record.fields.PageDescription}/></div>
           </div>
           <div className='col-12 col-sm-6 second-column'>
           {record.fields.PageHeroImages ?
@@ -221,7 +221,7 @@ class Event extends Component {
           <div className='featured-book container-fluid'>
             <div className='row'>
 
-              <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville' source={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
+              <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville' children={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
               <div className='col-6'><img onClick={this.openLightbox} src={record.fields.FeaturedBookImage[0].url}></img></div>
             </div>
           </div>

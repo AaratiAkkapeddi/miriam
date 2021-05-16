@@ -129,7 +129,7 @@ class Exhibition extends Component {
                         <div className='col-8'>
                         {record.fields.PageHeroImages.length == record.fields.PageHeroImageCaptions.split(',').length ?
                         
-                        <ReactMarkdown  source={record.fields.PageHeroImageCaptions.split(',')[i]}/>
+                        <ReactMarkdown children={record.fields.PageHeroImageCaptions.split(',')[i]}/>
                        
                       :""}
                       </div>
@@ -166,11 +166,11 @@ class Exhibition extends Component {
           <div style={borderStyle} className='toolbar'>
             <div className='row'>
                <div className='col-4'>
-               <ReactMarkdown source={record.fields.PageDateTimeText} /></div>
+               <ReactMarkdown children={record.fields.PageDateTimeText} /></div>
                <div className='col-4'>
-               <ReactMarkdown source={record.fields.PageDetailsCenter} />
+               <ReactMarkdown children={record.fields.PageDetailsCenter} />
               </div>
-               <div className='col-4'><ReactMarkdown source={record.fields.PageDetailsRight} /></div>
+               <div className='col-4'><ReactMarkdown children={record.fields.PageDetailsRight} /></div>
             </div>
           </div>
           {record.fields.PageHeroImages ?
@@ -212,7 +212,7 @@ class Exhibition extends Component {
         {record.fields.PageBodyImages ? 
           <div className='page-body container-fluid'>
             <div className='row'>
-              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown renderers={renderers} source={record.fields.PageDescription}/></div>
+              <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown renderers={renderers}children={record.fields.PageDescription}/></div>
               <div className='col-12 col-sm-6 second-column text-small baskerville'>
               <div className='row'>
                 {record.fields.PageBodyImages.map((x,i)=>{
@@ -231,7 +231,7 @@ class Exhibition extends Component {
           :
           <div className='page-body container-fluid'>
             <div className='row'>
-              <div className={record.fields.PageBigText ? ' text-large baskerville col-12' :' text-medium baskerville col-12'}><ReactMarkdown renderers={renderers} source={record.fields.PageDescription}/></div>
+              <div className={record.fields.PageBigText ? ' text-large baskerville col-12' :' text-medium baskerville col-12'}><ReactMarkdown renderers={renderers}children={record.fields.PageDescription}/></div>
             </div>
           </div>
         } 
@@ -239,7 +239,7 @@ class Exhibition extends Component {
           <div className='featured-book container-fluid'>
             <div className='row'>
 
-              <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville' source={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
+              <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville'children={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
               <div className='col-6'><img onClick={this.openLightbox} src={record.fields.FeaturedBookImage[0].url}></img></div>
             </div>
           </div>

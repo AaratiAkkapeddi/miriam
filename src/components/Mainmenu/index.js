@@ -90,8 +90,8 @@ class Mainmenu extends Component {
             :""}
           </div>
          <div className='info-menu text-tiny row'>
-         <ReactMarkdown className="col-6 col-lg-12" source={info[0].fields.LocationText} />
-         <ReactMarkdown className="col-6 col-lg-12" source={info[0].fields.HoursText} />
+         <ReactMarkdown className="col-6 col-lg-12" children={info[0].fields.LocationText} />
+         <ReactMarkdown className="col-6 col-lg-12" children={info[0].fields.HoursText} />
          </div>
          </div>
          : 'poop' }
