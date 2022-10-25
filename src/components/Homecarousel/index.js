@@ -13,7 +13,9 @@ import {
 import ReactMarkdown from "react-markdown";
 import {Slider} from '../';
 import {Menutrigger} from '../';
-
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
 class Homecarousel extends Component {
 
@@ -156,7 +158,7 @@ class Homecarousel extends Component {
 
    render() {
    	const { carousel_slides, carousel, currentIndex } = this.state;
-    console.log(carousel_slides)
+    
    
     const flickityOptions = {
     	cellAlign:'left',
@@ -168,14 +170,14 @@ class Homecarousel extends Component {
         if(x.fields.TileBg){
            var divStyle = {
             backgroundColor: x.fields.BackgroundColor,
-            backgroundImage: (x.fields.BackgroundImage ? 'url(' + x.fields.BackgroundImage[0].url + ')' : 'none'),
+            backgroundImage: (x.fields.BackgroundImageID ? 'url(' + "https://res.cloudinary.com/drik2e1su/image/upload/v1666702799/Homepage/"+ x.fields.BackgroundImageID.trim() + ')' : 'none'),
             backgroundRepeat:"repeat",
             backgroundSize: "10vw"
           }
         }else{
           var divStyle = {
             backgroundColor: x.fields.BackgroundColor,
-            backgroundImage: (x.fields.BackgroundImage ? 'url(' + x.fields.BackgroundImage[0].url + ')' : 'none')
+            backgroundImage: (x.fields.BackgroundImageID ? 'url(' + "https://res.cloudinary.com/drik2e1su/image/upload/v1666702799/Homepage/"+ x.fields.BackgroundImageID.trim() + ')' : 'none')
           }
         }
       

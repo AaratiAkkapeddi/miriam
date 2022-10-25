@@ -9,8 +9,11 @@ import {
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import ReactMarkdown from "react-markdown";
 import {Navigation} from '../';
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
 import {Mainmenu, Footer} from '../';
 import {Menutrigger} from '../';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
@@ -36,7 +39,7 @@ class Event extends Component {
        window.scrollTo({top: 0, behavior: 'smooth'});
     };
       openLightbox(e){
-    console.log(e)
+
     var img_url = e.target.src;
     var newImg = document.createElement('img');
     newImg.src = img_url;
@@ -88,6 +91,12 @@ class Event extends Component {
 
    render() {
     const {record} = this.props
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: 'drik2e1su'
+      }
+    });
+    const pageHeroImages = record.fields.PageHeroImageIDs?.split("|") 
      var navStyle= {
         backgroundColor: record.fields.PageBackgroundColor
       }
@@ -131,8 +140,37 @@ class Event extends Component {
               inlineCode: HtmlCode,
               code: HtmlCode
             };
-      if(record.fields.PageHeroImages){
-      var slides = record.fields.PageHeroImages.map((x,i)=>{
+            let slides;
+      if(pageHeroImages?.length > 0){
+        
+      
+        slides = pageHeroImages.map((x,i)=>{
+          x = x.trim()
+        let myImage = cld.image('events/'+x);
+        myImage.resize(fill().width(2000));
+
+          return(
+            <div>
+  
+            <AdvancedImage onClick={this.openLightbox} cldImg={myImage} /> 
+            <div className='caption row'>
+              
+            {record.fields.PageHeroImageCaptions ? 
+              <div className='col-12'>
+              {record.fields.PageHeroImageCaptions.split('|').length > 0 ?
+              
+             <div>{record.fields.PageHeroImageCaptions.split('|')[i]}</div>
+             
+            :""}
+            </div>
+              :""}
+             </div>
+            </div>
+
+            )
+        })
+      }else if(record.fields.PageHeroImages){
+       slides = record.fields.PageHeroImages.map((x,i)=>{
 
                     return(
                       <div>
@@ -141,9 +179,9 @@ class Event extends Component {
                         
                       {record.fields.PageHeroImageCaptions ? 
                         <div className='col-12'>
-                        {record.fields.PageHeroImages.length == record.fields.PageHeroImageCaptions.split(',').length ?
+                        {record.fields.PageHeroImageCaptions.split('|').length > 0 ?
                         
-                        <ReactMarkdown  children={record.fields.PageHeroImageCaptions.split(',')[i]}/>
+                        <div>{record.fields.PageHeroImageCaptions.split('|')[i]}</div>
                        
                       :""}
                       </div>
@@ -155,7 +193,28 @@ class Event extends Component {
                   })
       }
 
-
+      let headerImg;
+      let bookImg;
+      if(record.FeaturedBookImageID){
+        let myImage = cld.image('events/'+ record.FeaturedBookImageID);
+        myImage.resize(fill().width(2000));
+        bookImg = (
+          <AdvancedImage cldImg={myImage}/>
+        )
+      }
+      if(pageHeroImages?.length > 0){
+        let myImage = cld.image('events/'+pageHeroImages[0]);
+        myImage.resize(fill().width(2000));
+        headerImg = (
+          <AdvancedImage cldImg={myImage} /> 
+        )
+  
+      }else{
+        headerImg = (
+          <img onClick={this.openLightbox} src={record.fields.PageHeroImages[0].url}></img> 
+        )
+      }
+    
     const everything = record ? 
     (
        
@@ -212,7 +271,7 @@ class Event extends Component {
                 </div>
                 :
                 <div>
-                <img onClick={this.openLightbox} src={record.fields.PageHeroImages[0].url}></img>
+                {headerImg}
                 <div style={borderStyle} className='toolbar'>
                  <div className='row'>
                   <div className='col-12 image-caption'>{record.fields.PageHeroImageCaptions}</div>

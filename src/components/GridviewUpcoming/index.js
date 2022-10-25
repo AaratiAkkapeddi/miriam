@@ -70,9 +70,17 @@ class GridviewUpcoming extends Component {
     const {hovers} = this.state
     const {records, tense} = this.props
     const everythings = records.length > 0 ? records.map((x)=>{
+      let pageHeroImages = x.fields.PageHeroImageIDs.split("|");
+      for(let i = 0; i < pageHeroImages.length; i++){
+        let url = x.type == 'event' ? "https://res.cloudinary.com/drik2e1su/image/upload/v1666708638/Events/" : "https://res.cloudinary.com/drik2e1su/image/upload/v1666706439/Exhibitions/"
+        if(x.type == 'announcements'){
+          url = "https://res.cloudinary.com/drik2e1su/image/upload/v1666709931/Announcements/"
+        }
+        pageHeroImages[i] =  url + pageHeroImages[i].trim()
+      }
       var mybg = !x.fields.ThumbnailImage ? '' : "url(" + x.fields.ThumbnailImage[0].url + ")";
       if(mybg == ''){
-          mybg = !x.fields.PageHeroImages ? '' : "url(" + x.fields.PageHeroImages[0].url + ")";
+          mybg = !pageHeroImages ? '' : "url(" + pageHeroImages[0] + ")";
       }
 
       const divStyle={

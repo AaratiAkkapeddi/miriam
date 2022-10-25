@@ -11,7 +11,11 @@ import ReactMarkdown from "react-markdown";
 import {markdown} from 'markdown';
 import {Navigation} from '../';
 import {Mainmenu} from '../';
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 import {Menutrigger, Footer} from '../';
+
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
@@ -33,10 +37,10 @@ class Exhibition extends Component {
        window.scrollTo({top: 0, behavior: 'smooth'});
     };
          openLightbox(e){
-    console.log(e)
+
     var img_url = e.target.src;
     let img_caption = e.target.getAttribute("datacaption");
-    console.log(e.target)
+
     let caption = document.createElement('div');
     caption.classList.add("lightbox-caption");
     caption.classList.add("text-small");
@@ -94,6 +98,15 @@ class Exhibition extends Component {
 
    render() {
     const {record} = this.props
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: 'drik2e1su'
+      }
+    });
+    const pageHeroImages = record.fields.PageHeroImageIDs?.split("|") 
+    // const myImage = cld.image('exhibitions/Unfolding_Forms_18_ozgipn');
+    // myImage.resize(fill().width(250).height(250));
+
      var navStyle= {
         backgroundColor: record.fields.PageBackgroundColor
       }
@@ -136,8 +149,35 @@ class Exhibition extends Component {
               inlineCode: HtmlCode,
               code: HtmlCode
             };
-      if(record.fields.PageHeroImages){
-      var slides = record.fields.PageHeroImages.map((x,i)=>{
+      let slides;
+      if(pageHeroImages?.length){
+    
+         slides = pageHeroImages.map((x,i)=>{
+          let id = x.trim()
+
+          let myImage = cld.image('exhibitions/'+id);
+          myImage.resize(fill().width(2000));
+          return(
+            <div className={record.fields.PageHeroImageStyle}>
+            <AdvancedImage cldImg={myImage} />
+            <div className='caption row'>
+              <span className='counter col-2'>{(i+1)+"/"+ pageHeroImages.length}</span>
+            {record.fields.PageHeroImageCaptions ? 
+              <div className='col-8'>
+              {record.fields.PageHeroImageCaptions.split('|').length > 0 ?
+              
+              <ReactMarkdown children={record.fields.PageHeroImageCaptions.split('|')[i]}/>
+             
+            :""}
+            </div>
+              :""}
+             </div>
+            </div>
+
+            )
+        })
+      }else if(record.fields.PageHeroImages){
+       slides = record.fields.PageHeroImages.map((x,i)=>{
 
                     return(
                       <div className={record.fields.PageHeroImageStyle}>
@@ -146,9 +186,9 @@ class Exhibition extends Component {
                         <span className='counter col-2'>{(i+1)+"/"+ record.fields.PageHeroImages.length}</span>
                       {record.fields.PageHeroImageCaptions ? 
                         <div className='col-8'>
-                        {record.fields.PageHeroImages.length == record.fields.PageHeroImageCaptions.split(',').length ?
+                        {record.fields.PageHeroImageCaptions.split('|').length > 0 ?
                         
-                        <ReactMarkdown children={record.fields.PageHeroImageCaptions.split(',')[i]}/>
+                        <ReactMarkdown children={record.fields.PageHeroImageCaptions.split('|')[i]}/>
                        
                       :""}
                       </div>
@@ -159,8 +199,28 @@ class Exhibition extends Component {
                       )
                   })
       }
+    let headerImg;
+    let bookImg;
 
+    if(record.fields.FeaturedBookImageID){
+      let myImage = cld.image('exhibitions/'+ record.fields.FeaturedBookImageID);
+      myImage.resize(fill().width(2000));
+      bookImg = (
+        <AdvancedImage cldImg={myImage}/>
+      )
+    }
+    if(pageHeroImages?.length > 0){
+      let myImage = cld.image('exhibitions/'+pageHeroImages[0]);
+      myImage.resize(fill().width(2000));
+      headerImg = (
+        <AdvancedImage cldImg={myImage} /> 
+      )
 
+    }else{
+      headerImg = (
+        <img onClick={this.openLightbox} src={record.fields.PageHeroImages[0].url}></img> 
+      )
+    }
     const everything = record ? 
     (
        
@@ -169,11 +229,7 @@ class Exhibition extends Component {
             <div className='header text-medium '> Exhibition </div>
           </div>
           <header>
-          {record.fields.HeaderImage ? 
-            <img onClick={this.openLightbox} src={record.fields.HeaderImage[0].url}/>
-            : 
-           ""
-          }
+  
           {record.fields.PageHeaderText ? 
              <h1 className={record.fields.HeaderImage ? 'header-with-image text-large baskerville': 'text-large baskerville'}> {record.fields.PageHeaderText}</h1>
              :
@@ -192,10 +248,9 @@ class Exhibition extends Component {
                <div className='col-4'><ReactMarkdown children={record.fields.PageDetailsRight} /></div>
             </div>
           </div>
-          {record.fields.PageHeroImages ?
+          {pageHeroImages ?
               <div className='top'>
-              {record.fields.PageHeroImages.length > 1 ?
-
+              {pageHeroImages.length > 1 ?
                 <div className={record.fields.PageHeroImageStyle}>
                 {record.fields.PageHeroImagesGrid ? 
                   <div className='hero-grid'>
@@ -203,39 +258,39 @@ class Exhibition extends Component {
                   </div>
                   :
                   <div class='alice-wrapper'>
-                <AliceCarousel ref={(el) => (this.Carousel = el)} duration='0' autoPlay autoPlayInterval="3000"
-                >
-
-                  {slides}
-                </AliceCarousel>
-                <button className="alice-button alice-button-prev" onClick={() => this.Carousel.slidePrev()}>Prev button</button>
-                <button className="alice-button alice-button-next" onClick={() => this.Carousel.slideNext()}>Next button</button>
-                </div>
-              }
+                    <AliceCarousel ref={(el) => (this.Carousel = el)} duration='0' autoPlay autoPlayInterval="3000">
+                      {slides}
+                    </AliceCarousel>
+                    <button className="alice-button alice-button-prev" onClick={() => this.Carousel.slidePrev()}>Prev button</button>
+                    <button className="alice-button alice-button-next" onClick={() => this.Carousel.slideNext()}>Next button</button>
+                  </div>
+                }
                 </div>
                 :
                 <div className={record.fields.PageHeroImageStyle}>
-                <img onClick={this.openLightbox} src={record.fields.PageHeroImages[0].url}></img>
-                <div style={borderStyle} className='toolbar'>
-                 <div className='row'>
-                  <div className='col-2'></div>
-                  <div className='col-8'>{record.fields.PageHeroImageCaptions}</div>
-                 
+                 {headerImg}
+                  <div style={borderStyle} className='toolbar'>
+                    <div className='row'>
+                      <div className='col-2'></div>
+                      <div className='col-8'>{record.fields.PageHeroImageCaptions}</div>
+                    </div>
                   </div>
-                </div>
                 </div>
               }
               </div>
 
           : ""}
-        {record.fields.PageBodyImages ? 
+        {record.fields.PageBodyImageIDs ? 
           <div className='page-body container-fluid'>
             <div className='row'>
               <div className='col-12 col-sm-6 text-small baskerville'><ReactMarkdown components={components} children={record.fields.PageDescription}/></div>
               <div className='col-12 col-sm-6 second-column text-small baskerville'>
               <div className='row'>
-                {record.fields.PageBodyImages.map((x,i)=>{
-                    console.log(x)
+                {record.fields.PageBodyImageIDs.split("|").map((x,i)=>{
+                    x = x.trim()
+                    let myImage = cld.image('exhibitions/'+x);
+                    myImage.resize(fill().width(2000));
+
                     let caption = ""
                     if(record.fields.PageBodyImageCaptions && (record.fields.PageBodyImageCaptions.split("|").length > 0)){
                       if(record.fields.PageBodyImageCaptions.split("|")[i]){
@@ -248,7 +303,7 @@ class Exhibition extends Component {
                     }
                     return(
                       <div className={record.fields.PageBodyImages.length > 2 ? "col-6 col-sm-4" : "col-12"} >
-                        <img dataCaption={caption} onClick={this.openLightbox} src={x.url} />
+                        <AdvancedImage dataCaption={caption} onClick={this.openLightbox} cldImg={myImage} />
                       </div>
                       )
                   })
@@ -269,7 +324,7 @@ class Exhibition extends Component {
             <div className='row'>
 
               <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville'children={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
-              <div className='col-6'><img onClick={this.openLightbox} src={record.fields.FeaturedBookImage[0].url}></img></div>
+              <div className='col-6'>{bookImg}</div>
             </div>
           </div>
         :""}
@@ -277,6 +332,7 @@ class Exhibition extends Component {
           
         </div>
        ) : 'loading'
+
     return (
     <div style={pageStyle} className='exhibition'>
       <Navigation></Navigation>

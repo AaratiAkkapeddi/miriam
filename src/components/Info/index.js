@@ -10,7 +10,9 @@ import ReactMarkdown from "react-markdown";
 import {Navigation, Footer} from '../';
 import AliceCarousel from 'react-alice-carousel';
 import {Mainmenu} from '../';
-
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
 class Info extends Component {
   constructor(props) {
@@ -34,11 +36,11 @@ class Info extends Component {
     const {info} = this.state
 
     if(info && info[0].fields.PageImages){
-      var slides = info[0].fields.PageImages.map((x,i)=>{
+      var slides = info[0].fields.PageImageIDs.split("|").map((x,i)=>{
 
                     return(
                       <div className={info[0].fields.PageImageStyle}>
-                      <img onClick={this.openLightbox} src={x.url}></img>
+                      <img onClick={this.openLightbox} src={"https://res.cloudinary.com/drik2e1su/image/upload/v1666708867/Info/"+x.trim()}></img>
                       <div className='caption row'>
                         <span className='counter col-2'>{(i+1)+"/"+ info[0].fields.PageImages.length}</span>
                       {info[0].fields.PageHeroImageCaptions ? 

@@ -15,7 +15,7 @@ const NoMatchPage = () => {
     <div>
       <Navigation></Navigation>
       <Mainmenu></Mainmenu>
-      <img className='oops-image' src='https://dl.airtable.com/.attachmentThumbnails/e2a293ce9cca576fcb3cf35ebdda5302/f5780653'/>
+      <img className='oops-image' src='https://res.cloudinary.com/drik2e1su/image/upload/v1666708867/Info/paint-bear-png_i8szoi'/>
       <h3 className='oops-message text-large'>Woops! This page does not exist. Maybe try going <a className='link' href='/'>Home</a>?</h3>
     </div>
   );

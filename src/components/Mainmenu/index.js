@@ -86,7 +86,7 @@ class Mainmenu extends Component {
           <div>
           <div className='menu-image'>
          {info[0].fields.MenuImage ? 
-            <img src ={info[0].fields.MenuImage[0].url}/>
+            <img src ={"https://res.cloudinary.com/drik2e1su/image/upload/v1666708867/Info/" + info[0].fields.MenuImageID.trim()}/>
             :""}
           </div>
          <div className='info-menu text-tiny row'>

@@ -202,8 +202,16 @@ document.getElementById("exhibitionTrigger").classList.remove("on")
     let allTags = [];
 
     const everythings = records.length > 0 ? records.map((x)=>{
+      let pageHeroImages = x.fields.PageHeroImageIDs.split("|");
+      for(let i = 0; i < pageHeroImages.length; i++){
+        let url = x.type == 'event' ? "https://res.cloudinary.com/drik2e1su/image/upload/v1666708638/Events/" : "https://res.cloudinary.com/drik2e1su/image/upload/v1666706439/Exhibitions/"
+        if(x.type == 'announcements'){
+          url = "https://res.cloudinary.com/drik2e1su/image/upload/v1666709931/Announcements/"
+        }
+        pageHeroImages[i] =  url + pageHeroImages[i].trim()
+      }
       const divStyle={
-        backgroundImage: (!x.fields.PageHeroImages ? '' : "url(" + x.fields.PageHeroImages[0].url + ")"),
+        backgroundImage: (!pageHeroImages ? '' : "url(" + pageHeroImages[0] + ")"),
         backgroundSize: "cover",
         backgroundPosition: "center"
       }
@@ -268,8 +276,8 @@ document.getElementById("exhibitionTrigger").classList.remove("on")
           <div className='text-small baskerville col-special'>{x.fields.Tags ? (x.fields.Tags.split(',').join(', ')) :""}</div>
           <h1 className='people text-small baskerville col-special'><ReactMarkdown children= {x.fields.People}></ReactMarkdown></h1>
           <div className='col-special'>
-            {x.fields.PageHeroImages ? 
-              <img src={x.fields.PageHeroImages[0].url}/>
+            {pageHeroImages ? 
+              <img src={pageHeroImages[0]}/>
             :""}
           </div>
           

@@ -12,6 +12,9 @@ import {Mainmenu} from '../';
 import {Menutrigger, Footer} from '../';
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
 // TODO convert this class to a pure function, w/o local state, its not necessary to be a class
 class Announcement extends Component {
@@ -86,6 +89,12 @@ class Announcement extends Component {
 
    render() {
     const {record} = this.props
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: 'drik2e1su'
+      }
+    });
+    const pageHeroImages = record.fields.PageHeroImageIDs?.split("|") 
     var pageStyle = {
         backgroundColor: record.fields.PageBackgroundColor,
         color: record.fields.PageTextColor
@@ -118,18 +127,18 @@ class Announcement extends Component {
       }
     }
       if(record.fields.HeroImages){
-      var slides = record.fields.HeroImages.map((x,i)=>{
+      var slides = pageHeroImages.map((x,i)=>{
 
                     return(
                       <div>
-                      <img onClick={this.openLightbox} src={x.url}></img>
+                      <img onClick={this.openLightbox} src={"https://res.cloudinary.com/drik2e1su/image/upload/v1666709976/Announcements/" + x.trim()}></img>
                       <div className='caption row'>
                         
                       {record.fields.HeroImageCaptions ? 
                         <div className='col-12'>
-                        {record.fields.HeroImages.length == record.fields.HeroImageCaptions.split(',').length ?
+                        {record.fields.HeroImages.length == record.fields.HeroImageCaptions.split('|').length ?
                         
-                        <ReactMarkdown  children={record.fields.HeroImageCaptions.split(',')[i]}/>
+                        <ReactMarkdown  children={record.fields.HeroImageCaptions.split('|')[i]}/>
                        
                       :""}
                       </div>
@@ -164,7 +173,7 @@ class Announcement extends Component {
                ""
             }
             {record.fields.PageHeroImages && !record.fields.PageHeroImageBackground ?
-                <img className="stacked-hero-image" src={record.fields.PageHeroImages[0].url}/>
+                <img className="stacked-hero-image" src={"https://res.cloudinary.com/drik2e1su/image/upload/v1666709976/Announcements/" + pageHeroImages[0].trim()}/>
             :
             ""}
 

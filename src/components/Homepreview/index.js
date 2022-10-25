@@ -12,7 +12,9 @@ import {
 import ReactMarkdown from "react-markdown";
 import {Slider} from '../';
 import {Menutrigger, Footer} from '../';
-
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
 
 class Homepreview extends Component {
