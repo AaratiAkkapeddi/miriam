@@ -70,8 +70,8 @@ class GridviewUpcoming extends Component {
     const {hovers} = this.state
     const {records, tense} = this.props
     const everythings = records.length > 0 ? records.map((x)=>{
-      let pageHeroImages = x.fields.PageHeroImageIDs.split("|");
-      for(let i = 0; i < pageHeroImages.length; i++){
+      let pageHeroImages = x.fields.PageHeroImageIDs?.split("|");
+      for(let i = 0; i < pageHeroImages?.length; i++){
         let url = x.type == 'event' ? "https://res.cloudinary.com/drik2e1su/image/upload/v1666708638/Events/" : "https://res.cloudinary.com/drik2e1su/image/upload/v1666706439/Exhibitions/"
         if(x.type == 'announcements'){
           url = "https://res.cloudinary.com/drik2e1su/image/upload/v1666709931/Announcements/"

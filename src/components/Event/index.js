@@ -97,6 +97,7 @@ class Event extends Component {
       }
     });
     const pageHeroImages = record.fields.PageHeroImageIDs?.split("|") 
+
      var navStyle= {
         backgroundColor: record.fields.PageBackgroundColor
       }
@@ -141,7 +142,7 @@ class Event extends Component {
               code: HtmlCode
             };
             let slides;
-      if(pageHeroImages?.length > 0){
+      if(pageHeroImages?.length > 1){
         
       
         slides = pageHeroImages.map((x,i)=>{
@@ -169,12 +170,14 @@ class Event extends Component {
 
             )
         })
-      }else if(record.fields.PageHeroImages){
-       slides = record.fields.PageHeroImages.map((x,i)=>{
-
+      }else if(pageHeroImages){
+       slides = pageHeroImages.map((x,i)=>{
+        x = x.trim()
+        let myImage = cld.image('events/'+x);
+        myImage.resize(fill().width(2000));
                     return(
                       <div>
-                      <img onClick={this.openLightbox} src={x.url}></img>
+                      <AdvancedImage onClick={this.openLightbox} cldImg={myImage} /> 
                       <div className='caption row'>
                         
                       {record.fields.PageHeroImageCaptions ? 
@@ -260,9 +263,9 @@ class Event extends Component {
             <div className={record.fields.PageBigText ? ' text-large baskerville' :' text-small baskerville'}><ReactMarkdown components={components} children={record.fields.PageDescription}/></div>
           </div>
           <div className='col-12 col-sm-6 second-column'>
-          {record.fields.PageHeroImages ?
+          {pageHeroImages ?
               <div className='top'>
-              {record.fields.PageHeroImages.length > 1 ?
+              {pageHeroImages.length > 1 ?
 
                 <div>
                   <div className='column-stacked'>
@@ -286,12 +289,12 @@ class Event extends Component {
           </div>
           
           </div>
-          {record.fields.FeaturedBookImage ? 
+          {record.fields.FeaturedBookImageID ? 
           <div className='featured-book container-fluid'>
             <div className='row'>
 
               <div className='col-6 '><ReactMarkdown style={bookButton} className='text-medium baskerville' children={record.fields.FeaturedBookText}/><a className='book-button' href={record.fields.FeaturedBookLink}><span className='text-medium'>Visit Bookshop</span></a></div>
-              <div className='col-6'><img onClick={this.openLightbox} src={record.fields.FeaturedBookImage[0].url}></img></div>
+              <div className='col-6'>{bookImg}</div>
             </div>
           </div>
         :""}
