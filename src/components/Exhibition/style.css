@@ -258,7 +258,7 @@ header img{
 		margin:0;
 	}
 	.top img{
-		margin:0;
+		width:calc(100vw - 30px);
 	}
 	.second-column .top .toolbar{
 		border:none;
