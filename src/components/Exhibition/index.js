@@ -210,7 +210,7 @@ class Exhibition extends Component {
       )
     }
     if(pageHeroImages?.length > 0){
-      let myImage = cld.image('exhibitions/'+pageHeroImages[0]);
+      let myImage = cld.image('exhibitions/'+pageHeroImages[0].trim());
       myImage.resize(fill().width(2000));
       headerImg = (
         <AdvancedImage cldImg={myImage} /> 
@@ -302,7 +302,7 @@ class Exhibition extends Component {
                       }
                     }
                     return(
-                      <div className={record.fields.PageBodyImages.length > 2 ? "col-6 col-sm-4" : "col-12"} >
+                      <div className={record.fields.PageBodyImageIDs.split("|").length > 2 ? "col-6 col-sm-4" : "col-12"} >
                         <AdvancedImage dataCaption={caption} onClick={this.openLightbox} cldImg={myImage} />
                       </div>
                       )
