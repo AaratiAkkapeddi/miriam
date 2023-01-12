@@ -1,0 +1,18 @@
+.header-info{
+	text-align: center;
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+	display: block;
+	width: calc(100% - 20px);
+	margin:15px 10px;
+	padding: 10px 0;
+	position: relative;
+}
+
+
+.underline > *{
+    border-bottom:1px dotted;
+    display: inline-block;
+}
+
+ 

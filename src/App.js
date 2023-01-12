@@ -9,7 +9,7 @@ import {
   useParams
 } from "react-router-dom";
 import './App.css';
-import {Home,Info, Past,Present,Future,Happening,Navigation,Homepreview, Mainmenu, AnnouncementPage, ExhibitionPage} from './components'
+import {Home,Info,Press, Past,Present,Future,Happening,Navigation,Homepreview, Mainmenu, AnnouncementPage, ExhibitionPage} from './components'
 const NoMatchPage = () => {
   return (
     <div>
@@ -55,10 +55,7 @@ class App extends React.Component {
         .then(res => {
           this.setState({ events: res.records })
         })
-        .catch(error => console.log(error))
-  
-
-        
+        .catch(error => console.log(error))      
   }
 
 
@@ -86,6 +83,10 @@ render() {
         </Route>
         <Route exact path="/info">
           <Info/>
+          <div id='light-box'><div onClick={this.closeLightbox}  className='close'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.47 71.47"><defs></defs><title>Close</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><line className="cls-1" x1="0.35" y1="71.12" x2="71.12" y2="0.35"/><line className="cls-1" x1="71.12" y1="71.12" x2="0.35" y2="0.35"/></g></g></svg></div><div className='inner'></div></div>
+        </Route>
+        <Route exact path="/press">
+          <Press/>
           <div id='light-box'><div onClick={this.closeLightbox}  className='close'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.47 71.47"><defs></defs><title>Close</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><line className="cls-1" x1="0.35" y1="71.12" x2="71.12" y2="0.35"/><line className="cls-1" x1="71.12" y1="71.12" x2="0.35" y2="0.35"/></g></g></svg></div><div className='inner'></div></div>
         </Route>
         <Route exact path="/home-preview">
