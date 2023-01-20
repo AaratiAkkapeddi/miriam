@@ -23,7 +23,7 @@ class Press extends Component {
 
    }
    componentDidMount() {
-    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/press?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/press?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY+"&view=table")
       .then(res => res.json())
       .then(res => {
         this.setState({ press: res.records })
