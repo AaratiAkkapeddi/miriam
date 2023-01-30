@@ -116,11 +116,8 @@ class Info extends Component {
              <a href="mailto:hello@miriamgallery.com">hello@miriamgallery.com</a></p>
             </div>
 
-            <h1 className='selected-press-div selected-press-h1 baskerville text-large header-info'>Selected Press</h1>
-            <div className='row selected-press-div '>
-              <div className='press-header baskerville col-sm-12'><div><span>Date</span><span>Publication</span></div></div>
-              <ReactMarkdown className="col-12 col-sm-12" children={info[0].fields.PageSelectedPress} />
-            </div>
+            <h1 className=' mailing header-info'><a href='/press'>Selected Press</a></h1>
+
             
             <div id='collaborators' className='row'><h1 className='col-12 collaborator-header baskerville text-large header-info'>Collaborators</h1>
               <ReactMarkdown className="col-12 text-large baskerville col-sm-12" children={info[0].fields.PageCollaborators} />

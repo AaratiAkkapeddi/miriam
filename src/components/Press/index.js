@@ -39,7 +39,7 @@ class Press extends Component {
     if(press){
          pressLinks = press.map((x,i)=>{
             return(
-                <a href={x.fields.url}><ReactMarkdown className="underline" children={x.fields.text} /></a>
+                <a className='press-link' href={x.fields.url}><ReactMarkdown children={x.fields.line1} /><ReactMarkdown className="underline" children={x.fields.line2} /><ReactMarkdown children={x.fields.line3} /></a>
             )
         })
     }

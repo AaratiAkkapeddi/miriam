@@ -9,10 +9,23 @@
 	position: relative;
 }
 
-
-.underline > *{
+.press-link{
+	border: none;
+	margin-bottom:2rem;
+	display: block;
+}
+.press-link:hover{
+	border:none;
+}
+.press-link p{
+	margin:0;
+}
+.press-link:hover .underline{
+	border-bottom: 1px solid;
+}
+.underline {
+	display: inline-block;
     border-bottom:1px dotted;
-    display: inline-block;
 }
 
  
