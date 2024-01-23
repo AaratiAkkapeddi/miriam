@@ -38,19 +38,19 @@ class App extends React.Component {
     el.classList.remove('on')
   }
   componentDidMount() {
-      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/exhibitions?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/exhibitions', { headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
         .then(res => res.json())
         .then(res => {
           this.setState({ records: res.records })
         })
         .catch(error => console.log(error))
-      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/announcements?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/announcements',{ headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
         .then(res => res.json())
         .then(res => {
           this.setState({ announcements: res.records })
         })
         .catch(error => console.log(error))
-      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/events?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/events',{ headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
         .then(res => res.json())
         .then(res => {
           this.setState({ events: res.records })

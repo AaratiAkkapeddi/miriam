@@ -39,7 +39,7 @@ class Homepreview extends Component {
    }
 
    componentDidMount() {
-      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/homepage_carousel?api_key='+process.env.REACT_APP_AIRTABLE_API_KEY)
+      fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/homepage_carousel?', { headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
         .then(res => res.json())
         .then(res => {
           this.setState({ carousel_slides: res.records })
