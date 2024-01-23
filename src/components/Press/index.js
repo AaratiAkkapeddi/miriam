@@ -23,7 +23,7 @@ class Press extends Component {
 
    }
    componentDidMount() {
-    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/press?&view=table', { 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })
+    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/press?&view=table',{ headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
       .then(res => res.json())
       .then(res => {
         this.setState({ press: res.records })

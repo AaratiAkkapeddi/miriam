@@ -23,7 +23,7 @@ class Info extends Component {
 
    }
    componentDidMount() {
-    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/info', { 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })
+    fetch('https://api.airtable.com/v0/apprjbiiZGRAW9lxA/info', { headers: new Headers({ 'Authorization': 'Bearer ' + process.env.REACT_APP_PAT })})
       .then(res => res.json())
       .then(res => {
         this.setState({ info: res.records })
