@@ -79,7 +79,6 @@ class Mainmenu extends Component {
             <li><a style={aStyle} href='/upcoming'>Upcoming</a></li>
             <li><a style={aStyle} href='/past'>Past</a></li>
             <li><a style={aStyle} href='/info'>Info</a></li>
-            <li><a style={aStyle} href='https://miriam.shoplightspeed.com/'>Bookshop</a></li>
          </ul>
          
          {info ? 
