@@ -29,7 +29,7 @@ class Navigation extends Component {
      <nav>
         <Menutrigger></Menutrigger>
         <MobileMenu></MobileMenu>
-         <div className='nav-bookstore'><a href='https://miriam.shoplightspeed.com/'>Bookshop</a></div>
+      
       </nav>
 
 
